@@ -47,7 +47,11 @@ const Index = () => {
       <Text fontSize="xl">Guess the Number!</Text>
       <Text>{message}</Text>
       <HStack>
-        <Input placeholder="Enter a number..." value={guess} onChange={(e) => setGuess(e.target.value)} isDisabled={message.includes("Correct!")} />
+        {Array.from({ length: 10 }, (_, i) => (
+          <Button key={i} onClick={() => setGuess(guess + i.toString())} isDisabled={message.includes("Correct!")}>
+            {i}
+          </Button>
+        ))}
         <Button onClick={checkGuess} leftIcon={<FaCheck />} colorScheme="blue" isDisabled={message.includes("Correct!")}>
           OK
         </Button>
