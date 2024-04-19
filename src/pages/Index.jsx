@@ -45,7 +45,7 @@ const Index = () => {
   return (
     <VStack spacing={4} align="center">
       <Text fontSize="xl">Guess the Number!</Text>
-      <Text>{message}</Text>
+      <Text>{message || guess}</Text>
       <Grid templateColumns="repeat(3, 1fr)" gap={2}>
         {Array.from({ length: 9 }, (_, i) => (
           <Button key={i + 1} onClick={() => setGuess(guess + (i + 1).toString())} isDisabled={message.includes("Correct!")}>
@@ -57,6 +57,9 @@ const Index = () => {
         </Button>
         <Button key={0} onClick={() => setGuess(guess + "0")} isDisabled={message.includes("Correct!")}>
           0
+        </Button>
+        <Button onClick={() => setGuess(guess.slice(0, -1))} leftIcon={<FaRedo />} colorScheme="red">
+          Backspace
         </Button>
         <Button onClick={resetGame} leftIcon={<FaRedo />} colorScheme="red">
           Reset
