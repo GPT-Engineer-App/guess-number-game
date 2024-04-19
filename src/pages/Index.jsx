@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Text, Input, VStack, HStack, useToast } from "@chakra-ui/react";
+import { Box, Button, Text, Input, VStack, HStack, useToast, Grid } from "@chakra-ui/react";
 import { FaRedo, FaCheck } from "react-icons/fa";
 
 const Index = () => {
@@ -43,22 +43,25 @@ const Index = () => {
   };
 
   return (
-    <VStack spacing={4}>
+    <VStack spacing={4} align="center">
       <Text fontSize="xl">Guess the Number!</Text>
       <Text>{message}</Text>
-      <HStack>
-        {Array.from({ length: 10 }, (_, i) => (
-          <Button key={i} onClick={() => setGuess(guess + i.toString())} isDisabled={message.includes("Correct!")}>
-            {i}
+      <Grid templateColumns="repeat(3, 1fr)" gap={2}>
+        {Array.from({ length: 9 }, (_, i) => (
+          <Button key={i + 1} onClick={() => setGuess(guess + (i + 1).toString())} isDisabled={message.includes("Correct!")}>
+            {i + 1}
           </Button>
         ))}
-        <Button onClick={checkGuess} leftIcon={<FaCheck />} colorScheme="blue" isDisabled={message.includes("Correct!")}>
+        <Button onClick={checkGuess} leftIcon={<FaCheck />} colorScheme="blue" gridColumn="span 2" isDisabled={message.includes("Correct!")}>
           OK
+        </Button>
+        <Button key={0} onClick={() => setGuess(guess + "0")} isDisabled={message.includes("Correct!")}>
+          0
         </Button>
         <Button onClick={resetGame} leftIcon={<FaRedo />} colorScheme="red">
           Reset
         </Button>
-      </HStack>
+      </Grid>
     </VStack>
   );
 };
